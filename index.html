@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="description" content="Image Gallery">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+      MLB Stats
+  </title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+<body>
+  <div id = head>
+  <h1> MLB Stat Central </h1>
+  </div>
+  <div id = main>
+  <form action="#" method = post name=form id=form>
+    Find Player<br><input name="name" id = 'name'> <br>
+    <input type=button id = submit name=submit value="Get Stats" >
+  </form>
+</div>
+</body>
+</html>
+
+<script>
+src="jquery-3.3.1.min.js"
+  function sendData(){
+      var name = document.getElementById('name').value
+
+      var xhttp2 = new XMLHttpRequest();
+      xhttp2.onreadystatechange = function() {
+
+      // Wait for readyState = 4 & 200 response
+      if (this.readyState == 4 && this.status == 200) {
+
+          // parse JSON response
+          console.log('sucess')
+          data = JSON.parse(this.responseText);
+          if(data.search_player_all.queryResults.totalSize != '0'){
+            id = data.search_player_all.queryResults.row.player_id
+            url1 = 'http://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id=%27mlb%27&game_type=%27R%27&season=%272017%27&player_id=%27'+id+'%27'
+            console.log(id)
+            var xhttp3 = new XMLHttpRequest();
+            xhttp3.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                var player = (JSON.parse(this.responseText))
+                console.log(player.sport_hitting_tm.queryResults.row['gidp'])
+              }else if (this.readyState == 4) {
+
+                  // this.status !== 200, error from server
+                  console.log(this.responseText);
+
+              }
+            }
+            xhttp3.open("get", url1, true);
+            xhttp3.send();
+          }else{
+            alert('Invalid Player. Try Again')
+          }
+
+      } else if (this.readyState == 4) {
+
+          // this.status !== 200, error from server
+          console.log(this.responseText);
+
+      }
+    };
+    var url = "http://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code=%27mlb%27&active_sw=%27Y%27&name_part=%27"+name+"%27"
+    xhttp2.open("get", url, true);
+    xhttp2.send();
+
+
+  }
+  document.getElementById('submit').addEventListener("click", sendData)
+</script>
