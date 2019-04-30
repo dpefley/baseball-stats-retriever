@@ -3,6 +3,7 @@
 <head>
   <meta name="description" content="Image Gallery">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="plotly-latest.min.js⁩"></script>
   <title>
       MLB Stats
   </title>
@@ -15,17 +16,23 @@
   </div>
   <div id = main>
   <form action="#" method = post name=form id=form>
-    Find Player<br><input name="name" id = 'name'> <br>
+    <input name="name" id = 'name' class = input placeholder = 'Player Name' > <br>
     <input type=button id = submit name=submit value="Get Stats" >
   </form>
+  <div id = table>
+    <div id = statsTable>
+    </div>
+  </div>
+  <div id="tester" style="width:600px;height:250px;"></div>
 </div>
+
 </body>
 </html>
 
 <script>
-src="jquery-3.3.1.min.js"
   function sendData(){
       var name = document.getElementById('name').value
+
 
       var xhttp2 = new XMLHttpRequest();
       xhttp2.onreadystatechange = function() {
@@ -37,25 +44,113 @@ src="jquery-3.3.1.min.js"
           console.log('sucess')
           data = JSON.parse(this.responseText);
           if(data.search_player_all.queryResults.totalSize != '0'){
-            id = data.search_player_all.queryResults.row.player_id
-            url1 = 'http://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id=%27mlb%27&game_type=%27R%27&season=%272017%27&player_id=%27'+id+'%27'
-            console.log(id)
+            var startYear = data.search_player_all.queryResults.row.pro_debut_date.substring(0,4)
+            var yearNum = parseInt(startYear)
+            console.log(startYear)
+            var id = data.search_player_all.queryResults.row.player_id
+            url1 = 'http://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id=%27mlb%27&game_type=%27R%27&season=%27'+startYear+'%27&player_id=%27'+id+'%27'
             var xhttp3 = new XMLHttpRequest();
             xhttp3.onreadystatechange = function() {
               if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("statsTable").parentNode.removeChild(document.getElementById('statsTable'))
+                var index = 1
+                var statList = ['ab', 'h', 'd', 't', 'hr', 'bb', 'avg', 'obp', 'slg', 'ops', 'rbi', 'so', 'babip']
                 var player = (JSON.parse(this.responseText))
-                console.log(player.sport_hitting_tm.queryResults.row['gidp'])
+                var stats = player.sport_hitting_tm.queryResults.row
+                var table = document.createElement('TABLE')
+                table.id = 'statsTable'
+                var row = table.insertRow(0)
+                var row1 = table.insertRow(index)
+                index = index + 1
+                var ops = [stats['ops']]
+                var babip = [stats['babip']]
+                for(var i=0; i < statList.length; ++i){
+                  var cell = document.createElement('th');
+                  cell.innerHTML = statList[i]
+                  row.appendChild(cell)
+                }
+                for(var i=0; i < statList.length; ++i){
+                  var cell1 = row1.insertCell(i)
+                  cell1.innerHTML = stats[statList[i]]
+                }
+                for(j = yearNum+1; j < 2020; ++j){
+                  url2 = 'http://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id=%27mlb%27&game_type=%27R%27&season=%27'+j+'%27&player_id=%27'+id+'%27'
+                  var xhttp4 = new XMLHttpRequest();
+                  xhttp4.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                      var statList = ['ab', 'h', 'd', 't', 'hr', 'bb', 'avg', 'obp', 'slg', 'ops', 'rbi', 'so', 'babip']
+                      var player = (JSON.parse(this.responseText))
+                      var stats = player.sport_hitting_tm.queryResults.row
+                      var row1 = table.insertRow(index)
+                      index = index + 1
+                      var babip1 = []
+                      var ops1 = []
+                      for(var i=0; i < statList.length; ++i){
+                        var cell1 = row1.insertCell(i)
+                        cell1.innerHTML = stats[statList[i]]
+                        if(statList[i] == 'ops'){
+                          ops.push(stats[statList[i]])
+                        }
+                        if(statList[i] == 'babip'){
+                          babip.push(stats[statList[i]])
+                        }
+
+                      }
+                      if(yearNum + index - 2 == 2019){
+                        // TESTER = document.getElementById('tester');
+                        // Plotly.plot( TESTER, [{
+	                      // x: [1, 2, 3, 4, 5],
+	                      // y: [1, 2, 4, 8, 16] }], {
+	                      // margin: { t: 0 } } );
+                        // var big = []
+                        // for(i = 0; i < babip.length; ++i){
+                        //   big.push(i)
+                        // }
+                        // var trace1 = {
+                        //     x: big,
+                        //     y: babip,
+                        //     type: 'scatter'
+                        //   };
+                        //
+                        //   var trace2 = {
+                        //       x : big,
+                        //       y: ops,
+                        //       type: 'scatter'
+                        //     };
+                        //
+                        // var data = [trace1, trace2];
+                        //
+                        // Plotly.newPlot('myDiv', data);
+
+                      }
+
+                    }else if (this.readyState == 4) {
+                        console.log(this.responseText);
+
+                    }
+
+                  }
+
+                  xhttp4.open("get", url2, true);
+                  xhttp4.send();
+
+                }
+
+
+                document.getElementById('table').appendChild(table)
+
               }else if (this.readyState == 4) {
 
                   // this.status !== 200, error from server
                   console.log(this.responseText);
 
               }
+
             }
             xhttp3.open("get", url1, true);
             xhttp3.send();
           }else{
-            alert('Invalid Player. Try Again')
+            alert('Invalid Player or Year. Try Again')
           }
 
       } else if (this.readyState == 4) {

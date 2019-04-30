@@ -4,6 +4,7 @@
 
 body{
   background-image: url('stadium.jpg');
+  background-size: cover;
 }
 
 #head {
@@ -46,12 +47,14 @@ body{
 }
 
 h1{
-  color: Blue;
+  color: White;
   font-family: Trebuchet MS, sans-serif;
-  font-size: 60px;
+  font-size: 70px;
+  -webkit-text-stroke-width: 1px;
+   -webkit-text-stroke-color: black;
 }
 
-#name{
+.input{
   position: relative;
   height: 30px;
   width: 50%;
@@ -71,10 +74,19 @@ h1{
   border: 0px;
   background: none;
   color: White;
-  font-size: 20px;
-  width: 20%;
+  font-size: 45px;
+  width: 30%;
 }
 
 #submit:hover{
   color: Black;
+}
+
+
+#statsTable{
+  background-color: white;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 15px;
 }
