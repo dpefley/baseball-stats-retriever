@@ -187,9 +187,13 @@ function sendData(){
                           row.appendChild(nameText);
 
                           console.log(leaders);
-
-                          var leaderNames = leaders.leader_hitting_repeater.leader_hitting_mux.queryResults.row;
-                          var leaderVals = leaders.leader_hitting_repeater.leader_hitting_mux.queryResults.row;
+                          if(pos != 'P'){
+                            var leaderNames = leaders.leader_hitting_repeater.leader_hitting_mux.queryResults.row;
+                            var leaderVals = leaders.leader_hitting_repeater.leader_hitting_mux.queryResults.row;
+                          } else{
+                            var leaderNames = leaders.leader_pitching_repeater.leader_pitching_mux.queryResults.row;
+                            var leaderVals = leaders.leader_pitching_repeater.leader_pitching_mux.queryResults.row;
+                          }
 
                           console.log(leaderNames);
                           console.log(leaderVals);
