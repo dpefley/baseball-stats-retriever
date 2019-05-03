@@ -180,7 +180,7 @@ function sendData(){
                           var radioVal = document.createElement('th');//.innerHTML = radio;
                           var nameText = document.createElement('th');//.innerHTML = "NAME";
 
-                          radioVal.innerHTML = radio;
+                          radioVal.innerHTML = "Selected Stat: " + radio;
                           nameText.innerHTML = "NAME";
 
                           row.appendChild(radioVal);

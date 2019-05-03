@@ -141,6 +141,10 @@ table, th, td {
 #leaders {
   position: absolute;
   /* top: 1100px; */
-  text-align: center;
   width: 100%;
+  font-size: 25px;
+}
+
+#leadersTable {
+  background-color: white;
 }
