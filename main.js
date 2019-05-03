@@ -25,9 +25,9 @@ function sendData(){
           var id = data.search_player_all.queryResults.row.player_id
         //  console.log(data.search_player_all.queryResults.row)
           if(pos != 'P'){
-            url1 = 'http://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id=%27mlb%27&game_type=%27R%27&season=%27'+startYear+'%27&player_id=%27'+id+'%27'
+            url1 = 'https://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id=%27mlb%27&game_type=%27R%27&season=%27'+startYear+'%27&player_id=%27'+id+'%27'
           }else{
-            url1 = 'http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id=%27mlb%27&game_type=%27R%27&season=%27'+startYear+'%27&player_id=%27'+id+'%27'
+            url1 = 'https://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id=%27mlb%27&game_type=%27R%27&season=%27'+startYear+'%27&player_id=%27'+id+'%27'
           }
           //console.log(url1)
           var xhttp3 = new XMLHttpRequest();
@@ -63,7 +63,7 @@ function sendData(){
                 cell1.innerHTML = stats[statList[i]]
               }
               for(j = yearNum+1; j < 2020; ++j){
-                url2 = 'http://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id=%27mlb%27&game_type=%27R%27&season=%27'+j+'%27&player_id=%27'+id+'%27'
+                url2 = 'https://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id=%27mlb%27&game_type=%27R%27&season=%27'+j+'%27&player_id=%27'+id+'%27'
                 var xhttp4 = new XMLHttpRequest();
                 xhttp4.onreadystatechange = function() {
                   if (this.readyState == 4 && this.status == 200) {
@@ -156,10 +156,10 @@ function sendData(){
                       console.log("gets to leaderboard");
                       var leaderboardURL;
                       if (pos != 'P') {
-                        leaderboardURL = "http://lookup-service-prod.mlb.com/json/named.leader_hitting_repeater.bam?sport_code=%27mlb%27&results=10&game_type=%27R%27&season=%272019%27&sort_column=%27"+ radio +"%27&leader_hitting_repeater";
+                        leaderboardURL = "https://lookup-service-prod.mlb.com/json/named.leader_hitting_repeater.bam?sport_code=%27mlb%27&results=10&game_type=%27R%27&season=%272019%27&sort_column=%27"+ radio +"%27&leader_hitting_repeater";
                       }
                       else {
-                        leaderboardURL = "http://lookup-service-prod.mlb.com/json/named.leader_pitching_repeater.bam?sport_code=%27mlb%27&results=10&game_type=%27R%27&season=%272019%27&sort_column=%27"+ radio +"%27&leader_pitching_repeater";
+                        leaderboardURL = "https://lookup-service-prod.mlb.com/json/named.leader_pitching_repeater.bam?sport_code=%27mlb%27&results=10&game_type=%27R%27&season=%272019%27&sort_column=%27"+ radio +"%27&leader_pitching_repeater";
                       }
 
                       var xhttp5 = new XMLHttpRequest();
@@ -180,7 +180,7 @@ function sendData(){
                           var radioVal = document.createElement('th');//.innerHTML = radio;
                           var nameText = document.createElement('th');//.innerHTML = "NAME";
 
-                          radioVal.innerHTML = radio;
+                          radioVal.innerHTML = "Selected Stat: " + radio;
                           nameText.innerHTML = "NAME";
 
                           row.appendChild(radioVal);
@@ -261,7 +261,7 @@ function sendData(){
     // alert(heightTable);
     // document.getElementById("table").style.height = heightTable;
   };
-  var url = "http://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code=%27mlb%27&active_sw=%27Y%27&name_part=%27"+name+"%27"
+  var url = "https://lookup-service-prod.mlb.com/json/named.search_player_all.bam?sport_code=%27mlb%27&active_sw=%27Y%27&name_part=%27"+name+"%27"
   xhttp2.open("get", url, true);
   xhttp2.send();
 }
