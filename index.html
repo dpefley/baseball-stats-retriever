@@ -1,65 +1,52 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta name="description" content="Image Gallery">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <title>
-      MLB Stats
+    MLB Stats
   </title>
   <link rel="stylesheet" type="text/css" href="style.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
   <script src="./js/stat_maps.js"></script>
   <script src="./js/main.js"></script>
 </head>
+
 <body>
-  <div id = head>
-  <h1> MLB Stat Central </h1>
+  <div id=head>
+    <h1> MLB Stat Central </h1>
   </div>
-  <div id = main>
-  <form action="#" method = post name=form id=form>
-    <input name="name" id = 'name' class = input placeholder = 'Player Name' > <br>
-    <p id="exPlayer">ex. "Javier Baez"</p>
-    <div id = 'radio'>
-      <span id = label>
-      Compare to Babip and OPS </span>
-      <br>
-      <div class = 'radio'>
-      <label for="h">BA</label>
-      <input type="radio" id = 'h' name="answer" value = 'avg' class = 'radio' checked>
-    </div>
-    <div class = 'radio'>
-    <label for="hr">OBP</label>
-      <input type="radio" id = 'hr' name="answer" value = 'obp' class = 'radio'>
-    </div>
-    <div class = 'radio'>
-    <label for="so">SLG</label>
-      <input type="radio" id = 'so' name="answer" value = 'slg' class = 'radio'>
-    </div>
-    </div>
-    <input type=button id = 'submit' name=submit value="Get Stats" >
+  <div id=main>
+    <form action="#" method=post name=form id=form>
+      <input name="name" id='name' class=input placeholder='Player Name'> <br>
+      <p id="exPlayer">ex. "Javier Baez"</p>
+      <input type=button id='submit-stats' name=submit value="Get Stats">
+    </form> <br>
 
-  </form> <br>
+    <div class="main-content">
+      <div id=table>
+        <div id=statsTable></div>
+      </div>
+      <div id=plotCont>
+        <div id="myDiv"></div>
+      </div>
+      <div id=leaders>
+        <div id=leadersTable></div>
+      </div>
+    </div>
 
-  <div id = table>
-    <div id = statsTable></div>
-  </div>
-  <div id = plotCont>
-    <div id="myDiv"></div>
-  </div>
-  <div id = leaders>
-    <div id = leadersTable></div>
+
+
   </div>
 
-
-</div>
-
-<script type="text/javascript">
-  document.getElementById('submit').addEventListener("click", sendData)
-</script>
+  <script type="text/javascript">
+    document.getElementById('submit-stats').addEventListener("click", sendData)
+  </script>
 
 </body>
+
 </html>
-
-

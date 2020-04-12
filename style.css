@@ -8,7 +8,6 @@ body{
   text-align: center;
 }
 
-
 #form{
   bottom: 20px;
   position: relative;
@@ -18,9 +17,6 @@ body{
   font-size: 40px;
   font-family: Trebuchet MS, sans-serif
 }
-
-
-
 
 #main{
   position: relative;
@@ -65,11 +61,11 @@ h1{
   border-color: Blue
 }
 
-#submit{
-  background-color: rgb(122, 73,0);
+#submit-stats{
+  background-color: rgb(181, 181, 181) !important;
   border: 0px;
   background: none;
-  color: rgb(122, 73,0);
+  color: rgb(80, 80, 80);
   font-size: 45px;
   width: 100%;
   position: relative;
@@ -77,11 +73,16 @@ h1{
   box-shadow: 2px 2px 2px 2px black;
 }
 
-#submit:hover{
-  color: White;
+#submit-stats:hover {
+  color: black;
   cursor: pointer;
+  background-color: rgb(117, 117, 117) !important;
 }
 
+#submit-stats:disabled {
+  background-color: black !important;
+  color: white;
+}
 
 #statsTable{
   background-color: white;
@@ -126,6 +127,12 @@ table {
 
 table, th, td {
   border: 1px solid black;
+}
+
+@media screen and (max-width: 720px) {
+    table, th, td {
+      font-size: 10px;
+    }
 }
 
 #label{
